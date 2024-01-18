@@ -27,7 +27,7 @@ export default {
         if (response.ok) {
           console.log(response);
           localStorage.removeItem("api_token");
-          localStorage.removeItem("phone");
+          localStorage.removeItem("email");
           this.$router.push({name: "home"});
           console.log("Data submitted successfully");
         } else {

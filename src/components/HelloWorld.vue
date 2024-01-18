@@ -10,9 +10,6 @@
         <label for="login-email">Email:</label>
         <input type="email" id="login-email" v-model="loginEmail" required/>
 
-        <label for="login-password">Password:</label>
-        <input type="password" id="login-password" v-model="loginPassword" required/>
-
         <button type="submit">Login</button>
       </form>
       <p>
@@ -52,7 +49,6 @@ export default {
     return {
       showLogin: true,
       loginEmail: '',
-      loginPassword: '',
       signupUsername: '',
       signupEmail: '',
       signupPhone: '',
@@ -63,7 +59,22 @@ export default {
   methods: {
     login() {
       // Add your login logic here
-      console.log('Login form submitted');
+      axios.post('http://127.0.0.1/portalapi/public/api/login',{
+        'email':this.loginEmail,
+      })
+          .then((response)=>{
+            if(response.status === 200)
+            {
+              console.log(response)
+              const email = response.data.user.email;
+              localStorage.setItem('email',email);
+              this.$router.push({name: "otp"});
+            }
+          })
+          .catch((e)=>{
+            console.log(e)
+          //  this.errors = e.response.data.errors;
+          })
     },
     signup() {
       axios.post('http://127.0.0.1/portalapi/public/api/register', {
@@ -74,8 +85,8 @@ export default {
           .then((response) => {
             if(response.status === 200)
             {
-              const phone = response.data.user.phone;
-              localStorage.setItem('phone',phone);
+              const email = response.data.user.email;
+              localStorage.setItem('email',email);
               this.$router.push({name: "otp"});
             }
           })

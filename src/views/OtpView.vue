@@ -32,7 +32,7 @@ export default {
     verifyOTP() {
       axios.post('http://127.0.0.1/portalapi/public/api/verify', {
         'otp': this.otp,
-        'phone': localStorage.getItem('phone')
+        'email': localStorage.getItem('email')
       })
           .then((response) => {
             localStorage.setItem('api_token',response.data.token)
