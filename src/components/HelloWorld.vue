@@ -72,10 +72,12 @@ export default {
         'phone': this.signupPhone
       })
           .then((response) => {
-            console.log(response)
+            if(response.status === 200)
+            {
+              this.$router.push({name: "otp"});
+            }
           })
           .catch((e) => {
-            console.log(e.response.data.errors)
             this.errors = e.response.data.errors;
           })
     },
