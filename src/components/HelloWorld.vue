@@ -74,6 +74,8 @@ export default {
           .then((response) => {
             if(response.status === 200)
             {
+              const phone = response.data.user.phone;
+              localStorage.setItem('phone',phone);
               this.$router.push({name: "otp"});
             }
           })
