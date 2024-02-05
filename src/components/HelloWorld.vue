@@ -17,7 +17,6 @@
         <a href="#" @click="toggleForms">Switch to Signup</a>
       </p>
     </div>
-
     <div v-else>
       <h2>Signup</h2>
       <form @submit.prevent="signup">
@@ -43,6 +42,8 @@
 
 <script>
 import axios from "axios";
+import {useToast} from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
 
 export default {
   data() {
@@ -58,21 +59,31 @@ export default {
   },
   methods: {
     login() {
+      const $toast = useToast();
       // Add your login logic here
       axios.post('http://127.0.0.1/portalapi/public/api/login', {
         'email': this.loginEmail,
       })
           .then((response) => {
             if (response.status === 200) {
-              console.log(response)
-              const email = response.data.user.email;
-              localStorage.setItem('email', email);
-              this.$router.push({name: "otp"});
+              if (response.data.status === 0) {
+                console.log(response.data.error);
+                $toast.open({
+                  message: response.data.error,
+                  type: 'error',
+                  position: "top-right",
+                });
+              } else {
+                if (response.data.user) {
+                  const email = response.data.user.email;
+                  localStorage.setItem('email', email);
+                  this.$router.push({name: "otp"});
+                }
+              }
             }
           })
           .catch((e) => {
             console.log(e)
-            //  this.errors = e.response.data.errors;
           })
     },
     signup() {
@@ -139,30 +150,3 @@ a {
   cursor: pointer;
 }
 </style>
-
-<!--<script>-->
-<!--export default {-->
-<!--  name: 'HelloWorld',-->
-<!--  props: {-->
-<!--    msg: String-->
-<!--  }-->
-<!--}-->
-<!--</script>-->
-
-<!--&lt;!&ndash; Add "scoped" attribute to limit CSS to this component only &ndash;&gt;-->
-<!--<style scoped>-->
-<!--h3 {-->
-<!--  margin: 40px 0 0;-->
-<!--}-->
-<!--ul {-->
-<!--  list-style-type: none;-->
-<!--  padding: 0;-->
-<!--}-->
-<!--li {-->
-<!--  display: inline-block;-->
-<!--  margin: 0 10px;-->
-<!--}-->
-<!--a {-->
-<!--  color: #42b983;-->
-<!--}-->
-<!--</style>-->

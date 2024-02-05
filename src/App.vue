@@ -1,6 +1,7 @@
 <template>
   <nav v-if="checkAuth()">
-    <router-link to="/">Home</router-link> |
+    <router-link to="/dashboard">Books</router-link> |
+    <router-link to="/authors">Authors</router-link> |
   </nav>
   <router-view/>
 </template>
