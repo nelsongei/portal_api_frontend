@@ -59,21 +59,20 @@ export default {
   methods: {
     login() {
       // Add your login logic here
-      axios.post('http://127.0.0.1/portalapi/public/api/login',{
-        'email':this.loginEmail,
+      axios.post('http://127.0.0.1/portalapi/public/api/login', {
+        'email': this.loginEmail,
       })
-          .then((response)=>{
-            if(response.status === 200)
-            {
+          .then((response) => {
+            if (response.status === 200) {
               console.log(response)
               const email = response.data.user.email;
-              localStorage.setItem('email',email);
+              localStorage.setItem('email', email);
               this.$router.push({name: "otp"});
             }
           })
-          .catch((e)=>{
+          .catch((e) => {
             console.log(e)
-          //  this.errors = e.response.data.errors;
+            //  this.errors = e.response.data.errors;
           })
     },
     signup() {
@@ -83,10 +82,9 @@ export default {
         'phone': this.signupPhone
       })
           .then((response) => {
-            if(response.status === 200)
-            {
+            if (response.status === 200) {
               const email = response.data.user.email;
-              localStorage.setItem('email',email);
+              localStorage.setItem('email', email);
               this.$router.push({name: "otp"});
             }
           })

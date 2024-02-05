@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import OtpView from "@/views/OtpView.vue";
 import DashboardView from "@/views/DashboardView.vue";
+import AuthorView from "@/views/AuthorView.vue";
 
 const routes = [
   {
@@ -24,6 +25,14 @@ const routes = [
     name: "dashboard",
     component: DashboardView,
     meta: {
+      requiresAuth: true,
+    }
+  },
+  {
+    path: "/author",
+    name:"author",
+    component: AuthorView,
+    meta:{
       requiresAuth: true,
     }
   }

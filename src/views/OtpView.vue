@@ -2,16 +2,10 @@
   <div class="flex items-center justify-center h-screen">
     <div class="bg-white p-8 rounded shadow-md w-80">
       <h2 class="text-2xl font-bold mb-4">Enter OTP</h2>
-
-      <!-- OTP Input Fields -->
       <div class="grid grid-cols-4 gap-2 mb-6">
         <input type="text" v-model="otp" maxlength="4"
                class="col-span-4 p-3 text-center border border-gray-300 rounded focus:outline-none focus:border-blue-500">
-        <!--        <input v-model="otp" type="text" maxlength="1" v-for="(digit, index) in Array.from({ length: 4 })" :key="index"-->
-        <!--               class="col-span-1 p-3 text-center border border-gray-300 rounded focus:outline-none focus:border-blue-500">-->
       </div>
-
-      <!-- Submit Button -->
       <button @click="verifyOTP"
               class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
         Verify OTP
@@ -35,8 +29,9 @@ export default {
         'email': localStorage.getItem('email')
       })
           .then((response) => {
-            localStorage.setItem('api_token',response.data.token)
-            this.$router.push({name:'dashboard'})
+            localStorage.setItem('api_token', response.data.token)
+            this.$router.push({name: 'dashboard'})
+            window.location.reload();
           })
           .catch((e) => {
             console.log(e)

@@ -1,9 +1,23 @@
 <template>
-  <nav>
+  <nav v-if="checkAuth()">
     <router-link to="/">Home</router-link> |
   </nav>
   <router-view/>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      token: localStorage.getItem('api_token'),
+    }
+  },
+  methods:{
+    checkAuth(){
+      return Boolean(localStorage.getItem("api_token"));
+    },
+  },
+}
+</script>
 
 <style>
 #app {
